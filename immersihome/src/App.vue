@@ -1,23 +1,29 @@
 <template>
-  <Header />
+  <HeaderBar />
   <DisplaySettings />
+  <FooterBar />
 </template>
 
 <script>
 import DisplaySettings from './components/DisplaySettings.vue';
-import Header from './components/Header.vue';
+import HeaderBar from './components/HeaderBar.vue';
+import FooterBar from './components/FooterBar.vue';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    DisplaySettings
+    HeaderBar,
+    DisplaySettings,
+    FooterBar
   }
 }
 </script>
 
 <style>
 #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,5 +35,13 @@ body,
 html {
   margin: 0;
   padding: 0;
+}
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+footer {
+  margin-top: auto;
 }
 </style>
