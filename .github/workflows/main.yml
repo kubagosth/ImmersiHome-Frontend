@@ -26,11 +26,6 @@ jobs:
       working-directory: ./immersihome
       run: npm run build
 
-    - name: Configure Git
-      run: |
-        git config --global user.email "kubagosthmsg@gmail.com"
-        git config --global user.name "kubagosth"
-
     - name: Deploy to GitHub Pages
       working-directory: ./immersihome
       run: npm run deploy
