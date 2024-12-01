@@ -28,4 +28,4 @@ jobs:
 
     - name: Deploy to GitHub Pages
       working-directory: ./immersihome
-      run: npm run dist
+      run: npm run deploy
