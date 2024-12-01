@@ -18,6 +18,9 @@ jobs:
       with:
         node-version: 23.1.0
 
+    - name: Navigate to frontend directory
+      run: cd immersihome
+
     - name: Install dependencies
       run: npm install
 
