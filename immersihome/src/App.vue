@@ -1,17 +1,17 @@
 <template>
   <Header />
-  <OpenMap />
+  <DisplaySettings />
 </template>
 
 <script>
+import DisplaySettings from './components/DisplaySettings.vue';
 import Header from './components/Header.vue';
-import OpenMap from './components/OpenMap.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
-    OpenMap
+    DisplaySettings
   }
 }
 </script>
