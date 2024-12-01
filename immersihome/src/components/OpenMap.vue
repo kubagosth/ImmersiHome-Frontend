@@ -5,7 +5,7 @@
 <script>
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import markerIconPath from "@/assets/marker-icon.png"; 
+import markerIconPath from "@/assets/marker-icon.png";
 
 
 export default {
@@ -24,9 +24,9 @@ export default {
 
         const customIcon = L.icon({
             iconUrl: markerIconPath,
-            iconSize: [32, 32], 
-            iconAnchor: [16, 32], 
-            popupAnchor: [0, -32], 
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32],
         });
 
 
@@ -40,7 +40,7 @@ export default {
 
 <style>
 #map {
-  height: 100vh !important; 
-  width: 100vw !important; 
+    height: 100vh !important;
+    width: 100vw !important;
 }
 </style>
