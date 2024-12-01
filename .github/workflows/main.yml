@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 23.1.0
+
+    - name: Navigate to frontend directory
+      working-directory: ./immersihome
+      run: npm install
+
+    - name: Configure Git User
+      run: |
+        git config --global user.name "Jakub Grabarski"
+        git config --global user.email "kubagosthmsg@gmail.com"
+
+    - name: Build project
+      working-directory: ./immersihome
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      working-directory: ./immersihome
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/kubagosth/ImmersiHome-Frontend.git
+        npm run deploy
