@@ -19,13 +19,13 @@ jobs:
         node-version: 23.1.0
 
     - name: Navigate to frontend directory
-      run: cd immersihome
-
-    - name: Install dependencies
+      working-directory: immersihome
       run: npm install
 
     - name: Build project
+      working-directory: immersihome
       run: npm run build
 
     - name: Deploy to GitHub Pages
-      run: npx gh-pages -d dist
+      working-directory: immersihome
+      run: npm run deploy
