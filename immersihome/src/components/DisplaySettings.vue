@@ -13,12 +13,10 @@
         </div>
 
         <div class="view-container">
-            <!-- Map View -->
             <div id="map-view" v-show="currentView === 'map'">
                 <OpenMap />
             </div>
 
-            <!-- Grid View -->
             <div id="grid-view" v-show="currentView === 'list'">
                 <div class="grid-container">
                     <div v-for="(item, index) in items" :key="index" class="grid-item">
@@ -45,6 +43,7 @@ export default {
     data() {
         return {
             currentView: 'map',
+            //TODO: Replace with actual data from API
             items: [
                 {
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
