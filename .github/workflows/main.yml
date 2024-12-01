@@ -22,6 +22,11 @@ jobs:
       working-directory: ./immersihome
       run: npm install
 
+    - name: Configure Git User
+      run: |
+        git config --global user.name "Jakub Grabarski"
+        git config --global user.email "kubagosthmsg@gmail.com"
+
     - name: Build project
       working-directory: ./immersihome
       run: npm run build
