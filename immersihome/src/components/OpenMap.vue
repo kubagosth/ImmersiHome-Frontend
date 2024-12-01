@@ -1,10 +1,12 @@
 <template>
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    <div id="map"></div>
 </template>
 
 <script>
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import markerIconPath from "@/assets/marker-icon.png"; 
+
 
 export default {
     name: "OpenMap",
@@ -20,7 +22,15 @@ export default {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(this.map);
 
-        L.marker([55.0152622, 11.9150684])
+        const customIcon = L.icon({
+            iconUrl: markerIconPath,
+            iconSize: [32, 32], 
+            iconAnchor: [16, 32], 
+            popupAnchor: [0, -32], 
+        });
+
+
+        L.marker([55.0152622, 11.9150684], { icon: customIcon })
             .addTo(this.map)
             .bindPopup("Home Sweet Home")
             .openPopup();
