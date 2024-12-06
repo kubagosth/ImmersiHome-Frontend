@@ -16,10 +16,12 @@ export default {
     data() {
         return {
             map: null,
+            centerMarker: null,
         };
     },
     mounted() {
         this.map = L.map("map").setView([55.0152622, 11.9150684], 13);
+
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(this.map);
@@ -31,28 +33,32 @@ export default {
             popupAnchor: [0, -32],
         });
 
-        L.marker([55.0152622, 11.9150684], { icon: customIcon })
+        this.centerMarker = L.marker(this.map.getCenter(), { icon: customIcon })
             .addTo(this.map)
-            .bindPopup("Hello World!") 
+            .bindPopup("Marker follows the map's center")
             .openPopup();
+
+        this.map.on("move", () => {
+            const center = this.map.getCenter();
+            this.centerMarker.setLatLng(center);
+        });
 
         const geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
             collapsed: false,
-            geocoder : L.Control.Geocoder.nominatim({ geocodingQueryParams: { countrycodes: "dk", featuretype: "postcode" } }),
+            geocoder: L.Control.Geocoder.nominatim({
+                geocodingQueryParams: { countrycodes: "dk", featuretype: "postcode" },
+            }),
         })
             .on("markgeocode", (e) => {
                 const { bbox, center } = e.geocode;
-
                 this.map.fitBounds(bbox);
 
-                L.marker(center, { icon: customIcon })
-                    .addTo(this.map)
-                    .bindPopup(e.geocode.name)
-                    .openPopup();
+                this.centerMarker.setLatLng(center);
+                this.centerMarker.bindPopup(e.geocode.name).openPopup();
             })
-            .addTo(this.map);
 
+            .addTo(this.map);
         const geocoderElement = geocoderControl.getContainer();
         const mapContainer = document.getElementById("map");
         mapContainer.insertBefore(geocoderElement, mapContainer.firstChild);
