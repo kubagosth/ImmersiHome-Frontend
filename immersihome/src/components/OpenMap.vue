@@ -39,6 +39,7 @@ export default {
         const geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
             collapsed: false,
+            geocoder : L.Control.Geocoder.nominatim({ geocodingQueryParams: { countrycodes: "dk", featuretype: "postcode" } }),
         })
             .on("markgeocode", (e) => {
                 const { bbox, center } = e.geocode;
