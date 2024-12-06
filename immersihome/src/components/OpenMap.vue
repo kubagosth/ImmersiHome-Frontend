@@ -17,6 +17,7 @@ export default {
         return {
             map: null,
             centerMarker: null,
+            rangeCircle: null,
         };
     },
     mounted() {
@@ -38,9 +39,17 @@ export default {
             .bindPopup("Marker follows the map's center")
             .openPopup();
 
+        this.rangeCircle = L.circle(this.map.getCenter(), {
+            radius: 10000, // 10 km
+            color: "blue",
+            fillColor: "blue",
+            fillOpacity: 0.1,
+        }).addTo(this.map);
+
         this.map.on("move", () => {
             const center = this.map.getCenter();
-            this.centerMarker.setLatLng(center);
+            this.centerMarker.setLatLng(center); 
+            this.rangeCircle.setLatLng(center); 
         });
 
         const geocoderControl = L.Control.geocoder({
@@ -55,10 +64,11 @@ export default {
                 this.map.fitBounds(bbox);
 
                 this.centerMarker.setLatLng(center);
+                this.rangeCircle.setLatLng(center);
                 this.centerMarker.bindPopup(e.geocode.name).openPopup();
             })
-
             .addTo(this.map);
+
         const geocoderElement = geocoderControl.getContainer();
         const mapContainer = document.getElementById("map");
         mapContainer.insertBefore(geocoderElement, mapContainer.firstChild);
