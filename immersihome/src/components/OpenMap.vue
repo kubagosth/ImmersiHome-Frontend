@@ -38,6 +38,7 @@ export default {
 
         const geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
+            collapsed: false,
         })
             .on("markgeocode", (e) => {
                 const { bbox, center } = e.geocode;
