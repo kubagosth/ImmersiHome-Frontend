@@ -1,6 +1,17 @@
 <template>
     <div class="map-container">
         <div id="map"></div>
+        <div class="controls">
+            <label for="range">Set Range (km):</label>
+            <input
+                type="number"
+                id="range"
+                v-model="range"
+                @input="updateRange"
+                min="1"
+                max="500"
+            />
+        </div>
     </div>
 </template>
 
@@ -18,6 +29,7 @@ export default {
             map: null,
             centerMarker: null,
             rangeCircle: null,
+            range: 10,
         };
     },
     mounted() {
@@ -40,7 +52,7 @@ export default {
             .openPopup();
 
         this.rangeCircle = L.circle(this.map.getCenter(), {
-            radius: 10000, // 10 km
+            radius: this.range * 1000,
             color: "blue",
             fillColor: "blue",
             fillOpacity: 0.1,
@@ -48,8 +60,8 @@ export default {
 
         this.map.on("move", () => {
             const center = this.map.getCenter();
-            this.centerMarker.setLatLng(center); 
-            this.rangeCircle.setLatLng(center); 
+            this.centerMarker.setLatLng(center);
+            this.rangeCircle.setLatLng(center);
         });
 
         const geocoderControl = L.Control.geocoder({
@@ -73,6 +85,11 @@ export default {
         const mapContainer = document.getElementById("map");
         mapContainer.insertBefore(geocoderElement, mapContainer.firstChild);
     },
+    methods: {
+        updateRange() {
+            this.rangeCircle.setRadius(this.range * 1000);
+        },
+    },
 };
 </script>
 
@@ -86,6 +103,31 @@ export default {
 #map {
     height: 75vh !important;
     width: 100vw !important;
+}
+
+.controls {
+    position: absolute;
+    top: 1.25%;
+    left: 56vw;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.controls label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.controls input {
+    width: 80px;
+    padding: 5px;
+    font-size: 14px;
 }
 
 .leaflet-control-geocoder {
