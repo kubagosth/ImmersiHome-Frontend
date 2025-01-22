@@ -1,11 +1,12 @@
 <template>
   <HeaderBar />
-  <DisplaySettings />
+  <div class="content">
+    <router-view />
+  </div>
   <FooterBar />
 </template>
 
 <script>
-import DisplaySettings from './components/DisplaySettings.vue';
 import HeaderBar from './components/HeaderBar.vue';
 import FooterBar from './components/FooterBar.vue';
 
@@ -13,10 +14,9 @@ export default {
   name: 'App',
   components: {
     HeaderBar,
-    DisplaySettings,
     FooterBar
   }
-}
+};
 </script>
 
 <style>

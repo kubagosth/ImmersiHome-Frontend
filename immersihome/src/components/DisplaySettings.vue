@@ -19,7 +19,7 @@
 
             <div id="grid-view" v-show="currentView === 'list'">
                 <div class="grid-container">
-                    <div v-for="(item, index) in items" :key="index" class="grid-item">
+                    <div v-for="(item, index) in items" :key="index" class="grid-item" @click="viewDetails(item)">
                         <img :src="item.image" alt="Item image" class="item-image" />
                         <div class="item-details">
                             <p class="item-address">{{ item.address }}</p>
@@ -46,41 +46,49 @@ export default {
             //TODO: Replace with actual data from API
             items: [
                 {
+                    id: 1,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '200,000 kr',
                 },
                 {
+                    id: 2,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '300,000 kr',
                 },
                 {
+                    id: 3,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '400,000 kr',
                 },
                 {
+                    id: 4,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '500,000 kr',
                 },
                 {
+                    id: 5,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '600,000 kr',
                 },
                 {
+                    id: 6,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '700,000 kr',
                 },
                 {
+                    id: 7,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '800,000 kr',
                 },
                 {
+                    id: 8,
                     image: 'https://reviveyouthandfamily.org/wp-content/uploads/2016/11/house-placeholder-300x213.jpg',
                     address: 'Address placeholder',
                     price: '900,000 kr',
@@ -91,6 +99,14 @@ export default {
     methods: {
         toggleView() {
             console.log(`View changed to: ${this.currentView}`);
+        },
+        viewDetails(item) {
+            if (item.id) {
+                console.log('Navigating to HomeDetail with id:', item.id);
+                this.$router.push({ name: 'HomeDetail', params: { id: item.id } });
+            } else {
+                console.error('Item does not have an id:', item);
+            }
         }
     }
 };
