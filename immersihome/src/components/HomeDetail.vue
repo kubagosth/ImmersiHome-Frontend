@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import API from '@/api';
+
 export default {
     name: "HomeDetail",
     props: ["id"],
@@ -109,7 +111,18 @@ export default {
                 },
             ];
             this.home = items.find((item) => item.id === parseInt(id, 10));
-            console.log("Fetched home details:", this.home); 
+            console.log("Fetched home details:", this.home);
+            fetch(API.GET_HOME_DETAILS(id))
+                .then(response => response.json())
+                .then(data => {
+                    this.home = data;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    console.error("Error fetching home details:", error);
+                    this.error = "Failed to load home details.";
+                    this.loading = false;
+                });
         },
     },
 };
