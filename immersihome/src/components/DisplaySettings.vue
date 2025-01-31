@@ -3,11 +3,11 @@
         <h3>Display Settings</h3>
         <div class="view-toggle">
             <label>
-                <input type="radio" name="view" value="map" v-model="currentView" @change="toggleView" />
+                <input type="radio" name="view" value="map" v-model="currentView" />
                 Map View
             </label>
             <label>
-                <input type="radio" name="view" value="list" v-model="currentView" @change="toggleView" />
+                <input type="radio" name="view" value="list" v-model="currentView" />
                 Grid View
             </label>
         </div>
@@ -97,16 +97,13 @@ export default {
         };
     },
     methods: {
-        toggleView() {
-            console.log(`View changed to: ${this.currentView}`);
-        },
         viewDetails(item) {
-            if (item.id) {
-                console.log('Navigating to HomeDetail with id:', item.id);
-                this.$router.push({ name: 'HomeDetail', params: { id: item.id } });
-            } else {
-                console.error('Item does not have an id:', item);
+            if (!item || !item.id) {
+                console.error('Invalid item:', item);
+                return;
             }
+            console.log('Navigating to HomeDetail with id:', item.id);
+            this.$router.push({ name: 'HomeDetail', params: { id: item.id } });
         }
     }
 };
@@ -127,9 +124,10 @@ export default {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
+    justify-content: center;
 }
 
 .grid-item {
