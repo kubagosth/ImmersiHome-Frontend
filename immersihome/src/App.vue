@@ -1,20 +1,20 @@
 <template>
   <HeaderBar />
-  <div class="content">
-    <router-view />
-  </div>
-  <FooterBar />
+  <DisplaySettings/>
+  <FooterBar/>
 </template>
 
 <script>
 import HeaderBar from './components/HeaderBar.vue';
 import FooterBar from './components/FooterBar.vue';
+import DisplaySettings from './components/DisplaySettings.vue';
 
 export default {
   name: 'App',
   components: {
     HeaderBar,
-    FooterBar
+    FooterBar,
+    DisplaySettings
   }
 };
 </script>
