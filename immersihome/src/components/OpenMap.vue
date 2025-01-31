@@ -3,14 +3,7 @@
         <div id="map"></div>
         <div class="controls">
             <label for="range">Set Range (km):</label>
-            <input
-                type="number"
-                id="range"
-                v-model="range"
-                @input="updateRange"
-                min="1"
-                max="500"
-            />
+            <input type="number" id="range" v-model="range" @input="updateRange" min="1" max="500" />
         </div>
     </div>
 </template>
@@ -59,10 +52,13 @@ export default {
         }).addTo(this.map);
 
         this.map.on("move", () => {
-            const center = this.map.getCenter();
-            this.centerMarker.setLatLng(center);
-            this.rangeCircle.setLatLng(center);
+            requestAnimationFrame(() => {
+                const center = this.map.getCenter();
+                this.centerMarker.setLatLng(center);
+                this.rangeCircle.setLatLng(center);
+            });
         });
+
 
         const geocoderControl = L.Control.geocoder({
             defaultMarkGeocode: false,
@@ -87,8 +83,10 @@ export default {
     },
     methods: {
         updateRange() {
+            if (this.range < 1) this.range = 1;
+            if (this.range > 500) this.range = 500;
             this.rangeCircle.setRadius(this.range * 1000);
-        },
+        }
     },
 };
 </script>
